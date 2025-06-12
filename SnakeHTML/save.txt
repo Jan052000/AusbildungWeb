@@ -1,0 +1,89 @@
+move(dX, dY)
+            {
+                if(field[this.yPos + dY][this.xPos + dX] === 3)
+                {
+                    this.body.push(new Point(this.body[this.body.length - 1].xPos, this.body[this.body.length - 1].yPos));
+                    eaten = true;
+                }
+                //Clear field for update
+                for(let i = 0; i < this.body.length; i++)
+                {
+                    field[this.body[i].yPos][this.body[i].xPos] = CellStates.Empty;
+                }
+
+                if(this.xPos + dX < 0 || this.xPos + dX > field[0].length - 1 || this.yPos + dY < 0 || this.yPos + dY > field.length - 1)
+                {
+                    if(this.xPos + dX > field[0].length - 1)
+                    {
+                        this.xPos = 0;
+                        this.body[0].xPos = 0;
+                    }
+                    else
+                    {
+                        if(this.xPos + dX < 0)
+                        {
+                            this.xPos = field[0].length - 1;
+                            this.body[0].xPos = field[0].length - 1;
+                        }
+                        else
+                        {
+                            if(this.yPos + dY > field.length - 1)
+                            {
+                                this.yPos = 0;
+                                this.body[0].yPos = 0;
+                            }
+                            else
+                            {
+                                if(this.yPos + dY < 0)
+                                {
+                                    this.yPos = field.length - 1;
+                                    this.body[0].yPos = field.length - 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //Move Body
+                    for(let i = this.body.length - 1; i > 0; i--)
+                    {
+                        this.body[i].xPos = this.body[i - 1].xPos;
+                        this.body[i].yPos = this.body[i - 1].yPos;
+                    }
+                    this.body[0].xPos = this.xPos;
+                    this.body[0].yPos = this.yPos;
+                    this.xPos += dX;
+                    this.yPos += dY;
+                    this.body[0].xPos = this.xPos;
+                    this.body[0].yPos = this.yPos;
+                }
+                /*
+                //Move Body
+                for(let i = this.body.length - 1; i > 0; i--)
+                {
+                    this.body[i].xPos = this.body[i - 1].xPos;
+                    this.body[i].yPos = this.body[i - 1].yPos;
+                }
+                this.body[0].xPos = this.xPos;
+                this.body[0].yPos = this.yPos;
+                this.xPos += dX;
+                this.yPos += dY;
+                this.body[0].xPos = this.xPos;
+                this.body[0].yPos = this.yPos;
+                */
+
+                //Fill snake position
+                for(let i = 0; i < this.body.length; i++)
+                {
+                    if(i === 0)
+                    {
+                        field[this.body[i].yPos][this.body[i].xPos] = CellStates.SnakeHead;
+                    }
+                    else
+                    {
+                        field[this.body[i].yPos][this.body[i].xPos] = CellStates.SnakeBody;
+                    }
+                }
+            }
+        }

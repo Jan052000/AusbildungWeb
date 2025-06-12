@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="viewport" id='view' content="width=device-width, initial-scale=1.0">
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='styles.css'>
+    <title>Well programmed Snake</title>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+
+<body>
+    <div id="MenuStrip">
+        <p id="Test">Menu</p>
+        <input type="number" id="MenuText" name="FieldWidth" value="21" placeholder="21" title="Width of the Playingfield">
+        <input type="number" id="MenuText" name="FieldHeight" value="21" placeholder="21" title="Height of the Playingfield">
+        <input type="checkbox" id="MenuCheckBox" name="SnakeBodyChroma">
+        <label for="SnakeBodyChroma" id="TextLabel">Body Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="SnakeHeadChroma">
+        <label for="SnakeHeadChroma" id="TextLabel">Head Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="FruitChroma">
+        <label for="FruitChroma" id="TextLabel">Fruit Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="EmptyChroma">
+        <label for="EmptyChroma" id="TextLabel">Empty Chroma</label>
+        <button type="button" id="ApplyButton">Start</button>
+    </div>
+    <div id="TextContainer">
+        <p id="score"></p>
+    </div>
+    <div id="GameContainer">
+        <canvas id="SnakeGame"></canvas>
+    </div>
+    <script src="snake.js"></script>
+</body>
+
+</html>

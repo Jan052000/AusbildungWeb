@@ -1,0 +1,62 @@
+body
+{
+    background-color: black;
+}
+
+#TextContainer
+{
+    float: top;
+    overflow: auto;
+    width: 502px;
+    height: 100px;
+}
+
+#score
+{
+    color:white;
+}
+
+#GameContainer
+{
+    resize: both;
+    overflow: auto;
+    display: inline-block;
+    width: 508px;
+    height: 508px;
+}
+
+#SnakeGame
+{
+    border: 1px solid white;
+}
+
+#MenuStrip
+{
+    position: relative;
+    float: right;
+    overflow: auto;
+    width: 150px;
+    border: 1px solid white;
+    height: auto;
+}
+
+#MenuText
+{
+    width: 142px;
+}
+
+#MenuCheckBox
+{
+    color: white;
+}
+
+#TextLabel
+{
+    margin-right: 18%;
+    color: white;
+}
+
+#Test
+{
+    color: white;
+}
