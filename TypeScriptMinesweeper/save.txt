@@ -1,0 +1,114 @@
+function aiSweeper(){
+    //let vision: VisionBox[][] = [];
+    let vision: number[][] = [];
+    let toreveal: Point[] = [];
+    let unrevealed: Point[] = [];
+
+    /*for(let i = 0; i < field.length; i++){
+        vision.push([]);
+        for(let j = 0; j < field[i].length; j++){
+            let neighbours: VisionBox[] = [];
+
+            if(field[i][j].revealed){
+                vision[i].push(new VisionBox(j, i, field[i].length, field.length, true, field[i][j].content, vision));
+            }else{
+                unrevealed.push(new Point(j, i));
+                vision[i].push(new VisionBox(j, i, field[i].length, field.length, false, aiStates.Unknown, vision));
+            }
+        }
+    }
+    console.log(vision);
+
+    for(let i = 0; i < unrevealed.length; i++){
+
+    }*/
+
+    //Fill visionField
+    for(let i = 0; i < field.length; i++){
+        vision.push([]);
+        for(let j = 0; j < field[i].length; j++){
+            if(field[i][j].revealed){
+                vision[i].push(field[i][j].content);
+            }else{
+                vision[i].push(aiStates.Unknown);
+                unrevealed.push(new Point(j, i));
+            }
+        }
+    }
+
+    //Flag standalone unrevealed fields
+    for(let i = 0; i < unrevealed.length; i++){
+        let count = 0;
+        let unrevealedNeighbours = 0;
+        for(let dY = -1; dY <= 1; dY++){
+            for(let dX = -1; dX <= 1; dX++){
+                if(unrevealed[i].yPos + dY >= 0 && unrevealed[i].yPos + dY < vision[unrevealed[i].yPos].length && unrevealed[i].xPos + dX >= 0 && unrevealed[i].xPos + dX < vision[unrevealed[i].xPos].length){
+                    if(((dX !== 0 && dY !== 0) || dX !== dY) && vision[unrevealed[i].yPos + dY][unrevealed[i].xPos + dX] > 0){
+                        count++;
+                    }
+                    if(vision[unrevealed[i].yPos + dY][unrevealed[i].xPos + dX] === aiStates.Unknown){
+                        unrevealedNeighbours++;
+                    }
+                }
+            }
+        }
+        if(count === 8 || (unrevealedNeighbours === 1 && count > 0)){
+            vision[unrevealed[i].yPos][unrevealed[i].xPos] = aiStates.KnownBomb;
+        }
+    }
+
+    //Flag corner of a revealed field with only one unrevealed tile on the edges and all revealed tiles on the cross
+    for(let i = 0; i < vision.length; i++){
+        for(let j = 0; j < vision[0].length; j++){
+            let cornerOne = true;
+            for(let dY = -1; dY <= 1; dY++){
+                for(let dX = -1; dX <= 1; dX++){
+                    if(i + dY >= 0 && i + dY < vision[i].length && j + dX >= 0 && j + dX < vision[j].length){
+                        if(dY === dX){
+                            if(vision[i + dY][j + dX] === -1){
+                                cornerOne = false;
+                            }
+                        }
+                    }
+                }
+            }
+            if(cornerOne){
+                let temp: Point[] = []
+                for(let dY = -1; dY <= 1; dY++){
+                    for(let dX = -1; dX <= 1; dX++){
+                        if(i + dY >= 0 && i + dY < vision.length && j + dX >= 0 && j + dX < vision[i].length){
+                            if(dX !== dY){
+                                if(vision[i + dY][j + dX] === aiStates.Unknown){
+                                    temp.push(new Point(j + dX, i + dY));
+                                }
+                            }
+                        }
+                    }
+                }
+                if(temp.length === 1){
+                    field[temp[0].yPos][temp[0].xPos].Flag();
+                    console.log(temp[0]);
+                }
+            }
+        }
+    }
+
+
+
+    //Flag known bombs
+    for(let i = 0; i < field.length; i++){
+        for(let j = 0; j < field[i].length; j++){
+            if(vision[i][j] === aiStates.KnownBomb){
+                field[i][j].Flag();
+            }
+        }
+    }
+
+    //Reveal boxes to reveal
+    for(let i = 0; i < toreveal.length; i++){
+        field[toreveal[i].yPos][toreveal[i].xPos].reveal();
+    }
+
+    console.log(vision);
+    
+}

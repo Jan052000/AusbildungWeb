@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="viewport" id='view' content="width=device-width, initial-scale=1.0">
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='styles.css'>
+    <title>Well programmed Mine Sweeper</title>
+</head>
+
+<body oncontextmenu="return false;">
+    <div id="MenuStrip">
+        <p id="Test">Menu</p>
+        <input type="number" id="MenuText" name="FieldWidth" value="21" placeholder="21" title="Width of the Playingfield" min="1" max="100">
+        <input type="number" id="MenuText" name="FieldHeight" value="21" placeholder="21" title="Height of the Playingfield" min="1" max="100">
+        <input type="number" id="MenuText" name="MineCount" value="25" placeholder="25" title="Number of Mines in Field" min="0">
+    <!--
+        <input type="checkbox" id="MenuCheckBox" name="SnakeBodyChroma">
+        <label for="SnakeBodyChroma" id="TextLabel">Body Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="SnakeHeadChroma">
+        <label for="SnakeHeadChroma" id="TextLabel">Head Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="FruitChroma">
+        <label for="FruitChroma" id="TextLabel">Fruit Chroma</label>
+        <input type="checkbox" id="MenuCheckBox" name="EmptyChroma">
+        <label for="EmptyChroma" id="TextLabel">Empty Chroma</label>
+    -->
+        <button type="button" id="ApplyButton">Start</button>
+    </div>
+    <div id="TextContainer">
+        <p id="score"></p>
+    </div>
+    <div id="GameContainer">
+        <canvas id="MineSweeper"></canvas>
+    </div>
+    <script src="sweeper.js"></script>
+</body>
+<!--
+    images: https://www.pngwing.com/en/search?q=minesweeper
+-->
+</html>
