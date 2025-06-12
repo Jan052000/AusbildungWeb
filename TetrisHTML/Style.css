@@ -1,0 +1,27 @@
+body
+{
+	background-color : black;
+}
+
+#dontCare
+{
+	/*display: inline-block;*/ 
+	float: right;
+}
+
+#NextPiece
+{
+	border:1px solid #FFFFFF;
+}
+
+#TetrisDiv
+{
+	display: inline-block;
+	resize: both;
+	overflow: auto;
+}
+
+#Tetris
+{
+	border:1px solid #FFFFFF;
+}
